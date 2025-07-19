@@ -1,0 +1,130 @@
+@extends('layouts.themes')
+
+ <style>
+    a.tender_link {
+        color: rgba(var(--bs-link-color-rgb), 1) !important;
+    }
+ </style>
+
+ @section('content')
+ @include("../themes.th3.includes.breadcrumb")
+
+ @php
+        $pageurl = clean_single_input(request()->segment(2));
+        $langid1 = session()->get('locale')??1;
+@endphp 
+             
+<!--************************breadcrumb********************-->
+
+<div class="container">
+    <div class="row inner_page">
+        <div class="sidebar flex-shrink-0 col-lg-3 col-xs-12 pb-3 pe-lg-0">
+        @include("../themes.th3.includes.sidebar")
+        </div>
+    
+      <div class="col-lg-9 ">
+        <div class="content-div px-3">
+            <h3 class="">{{$data->m_name}}</h3>
+           
+            <form action="" method="post" name="filterForm" accept-charset="utf-8">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xm-12">
+                        <div class="form-group">
+                            <input type="text" name="keywords" id="keywords" class="input_class form-control alphNumDasSpcDotCommaBcsc" autocomplete="off"  value="{{old('keywords')}}" placeholder="Title" />
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-2 col-md-2 col-xm-12">
+                        <div class="form-group">
+                        <select name="circularstype" class="input_class form-control" id="circularstype" autocomplete="off">
+                            <option value=""> Select </option>
+                                <?php
+                                $statusArray = get_noticetype();
+                                foreach($statusArray as $key=>$value) {
+                                    if ($key == 7) {
+                                        continue;
+                                    }
+                                    ?>
+                                    <option value="<?php echo $key; ?>" <?php if((!empty($data->circularstype)?$data->circularstype:old('txtstatus'))==$key) echo "selected"; ?>><?php echo $value; ?></option>
+                                <?php  }?>
+                        </select>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-3 col-md-3 col-xm-12">
+                        <div class="form-group error-startdate">
+                            <input type="date" name="startdate" id="startdate1" class="input_class form-control validDate1" autocomplete="off" value="" placeholder="From Date" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xm-12">
+                        <div class="form-group error-enddate">
+                            <input type="date" name="enddate" id="enddate1" class="input_class form-control validDate1" autocomplete="off" value="" placeholder="To Date" />
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-xm-12">
+                        <input name="cmdsubmit" type="submit" class="btn btn-primary" id="cmdsubmit" value="Search" />
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th> {{get_title('sl',$langid1)->title??क्रमांक }}</th>
+                            <th> {{get_title('tttitle',$langid1)->title??शीर्षक }}</th>
+                            <!-- <th> {{$langid1 == 1 ? 'Circulars type' : 'परिपत्र प्रकार'}} </th> -->
+                            <th> {{$langid1 == 1 ? 'Download' : 'डाउनलोड' }}</th>   
+                            <th> {{get_title('published-on',$langid1)->title??'ऑनलाइन प्रकाशित किया गया' }}</th>
+                            <th> {{get_title('archive-date',$langid1)->title??'पुरालेख दिनांक' }}</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list">
+                        @if(count($circulars) > 0)
+                        <?php
+                            $count = 1;
+                            foreach($circulars as $row):
+                        ?>
+                            <tr>
+                                <td><?php echo $count++; ?></td>
+                                <td title="{{$row->title}}"> {{$row->title}} </td>
+                                <!-- <td title="{{circularstype($row->circularstype)}}">{{circularstype($row->circularstype)}}</td> -->
+                                <td> 
+                                    @if(!empty($row->txtuplode))
+                                        <a target="_blank" class="btn btn-sm btn-primary" href="{{ URL::asset('public/upload/admin/cmsfiles/circulars/')}}/{{$row->txtuplode}}" title="{{ URL::asset('public/upload/admin/cmsfiles/circulars/')}}/{{$row->txtuplode}}" > Download
+                                    @elseif(!empty($row->txtweblink))
+                                        <a target="_blank" class="tender_link" href="{{$row->txtweblink}}" title="{{$row->txtweblink}}"  > {{$row->tender_title}}
+                                    @else
+                                        <a target="_blank" class="tender_link" href="{{ url('/tenderivew') }}/{{$row->url}}" title="{{ url('/tenderivew') }}/{{$row->url}}" > {{$row->tender_title}}
+                                    @endif
+                                    </a>
+                                </td>
+                                <td>{{ \Carbon\Carbon::parse($row->startdate)->format('d-m-Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($row->enddate)->format('d-m-Y') }}</td>
+                            </tr>
+                        <?php
+                            endforeach;
+                        ?>
+                        @else
+                            <tr>
+                                <td colspan="6">
+                                    No data found....
+                                </td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+    
+    
+            {!! $circulars->withQueryString()->links('pagination::bootstrap-5') !!} @php $pageurl = substr(clean_single_input(request()->segment(2)),0,4); @endphp
+    
+        </div>
+    
+        <!-- <div class="text-end mt-3">
+          <span class="page-updated-date px-3 text-align-right print_remove fw-bold">{{get_title('lastupdate',$langid1)->title}}: {{ get_last_updated_date($title) }} </span>
+        </div> -->
+      </div>
+    </div>
+</div>
+
+
+@endsection

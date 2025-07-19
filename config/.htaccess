@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect all direct access to this folder to error page
+    RewriteCond %{REQUEST_URI} ^/igrms/config/
+    RewriteRule ^.*$ /igrms/error.php [L,R=302]
+</IfModule>
+
+# Also deny all direct access for extra security
+<FilesMatch "\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

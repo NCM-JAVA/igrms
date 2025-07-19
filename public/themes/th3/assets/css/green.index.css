@@ -1,0 +1,30 @@
+
+.swiper-navBtn {
+  padding: 10px;
+  margin: 10px;
+  background-color: green;
+  transition: color 0.3s ease;
+}
+.colorVoilet {
+  color: green !important;
+}
+
+.bgVoilet {
+  background-color: green !important;
+}
+
+.borderVoilet {
+  border: 2px solid green !important;
+}
+
+.viewall {
+  padding-left: 50px;
+  padding-right: 30px;
+}
+body{
+  background-color: aquamarine !important;
+}
+
+.bg-megenta_tr{
+  background-color: rgba(0, 128, 0, 0.598) !important;
+}

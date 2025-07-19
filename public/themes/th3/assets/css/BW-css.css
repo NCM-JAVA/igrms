@@ -1,0 +1,92 @@
+
+.swiper-navBtn {
+  padding: 10px;
+  margin: 10px;
+  background-color: #000;
+  transition: color 0.3s ease;
+}
+.colorVoilet {
+  color: #000 !important;
+}
+
+.bgVoilet {
+  background-color: #000 !important;
+}
+
+.borderVoilet {
+  border: 2px solid #000 !important;
+}
+
+.viewall {
+  padding-left: 50px;
+  padding-right: 30px;
+}
+
+.bg-megenta_tr{
+  background-color: #212121a9;
+}
+
+.kb-caption h1,
+.bg-megenta,
+.event-section,
+.bg_gray,
+.bg-white,
+.card,
+.navbarbg-megenta,
+.productRating,
+footer,
+.dropdown-item:focus,
+ .dropdown-item:hover{
+  background-color: #212121 !important;
+}
+
+body,
+.imp-links,
+.holder,
+.bg-secondary,
+.bg-readmore,
+.bg_black,
+.submit,
+nav .dropdown-menu,
+.bg-black{
+  background-color: #000 !important;
+}
+
+.holder ul li i{
+  color: #212121 !important;
+}
+
+a, li, p, h1, h2, h3, h4, h5, h6,
+.holder ul li a,
+.text-dark,
+.viewall,
+.right_up_arrow,
+.text-black,
+.form-control,
+.form-control:focus,
+.form-control:focus,
+.submit {
+  color: rgb(255, 221, 0) !important;
+}
+.read_more,
+.arrow_icon,
+.card-title,
+.colorVoilet,
+.social-logo i,
+.useful-links .links i,
+.form_lable{
+  color: #fff !important;
+}
+
+
+img{
+  filter: grayscale() !important;
+}
+.footer-right img{
+  filter: invert(1) !important;
+}
+.border-bottom,
+.card,
+.border{
+  border-color: #343434 !important;
+}
